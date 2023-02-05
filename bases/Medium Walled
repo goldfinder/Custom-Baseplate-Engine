@@ -1,5 +1,16 @@
 -- Converted using Mokiros's Model to Script Version 3
 -- Converted string size: 1428 characters
+--Table Create Fix--
+function createTable(...)
+  local args = {...}
+  local tbl = {}
+  for i, v in ipairs(args) do
+    tbl[i] = v
+  end
+  return tbl
+end
+--End--
+
 local function Decode(str)
 	local StringLength = #str
 	
@@ -10,7 +21,7 @@ local function Decode(str)
 			decoder[char:byte()] = b64code-1
 		end
 		local n = StringLength
-		local t,k = table.create(math.floor(n/4)+1),1
+		local t,k = createTable(math.floor(n/4)+1),1
 		local padding = str:sub(-2) == '==' and 2 or str:sub(-1) == '=' and 1 or 0
 		for i = 1, padding > 0 and n-4 or n, 4 do
 			local a, b, c, d = str:byte(i,i+3)
